@@ -30,6 +30,7 @@ pub type Model {
     from: TextArea,
     to: TextArea,
     open_select: Option(SelectTarget),
+    error: Option(String),
   )
 }
 
@@ -50,6 +51,7 @@ fn init(_args) -> #(Model, Effect(Message)) {
       from: TextArea(text: "", language: Japanese),
       to: TextArea(text: "", language: English),
       open_select: None,
+      error: None,
     ),
     effect.none(),
   )
@@ -104,11 +106,24 @@ fn update(model: Model, message: Message) -> #(Model, Effect(Message)) {
     )
 
     TranslationReceived(Ok(translated)) -> #(
-      Model(..model, to: TextArea(..model.to, text: translated)),
+      Model(..model, to: TextArea(..model.to, text: translated), error: None),
       effect.none(),
     )
 
-    TranslationReceived(Error(_)) -> #(model, effect.none())
+    TranslationReceived(Error(error)) -> #(
+      Model(..model, error: Some(describe_error(error))),
+      effect.none(),
+    )
+  }
+}
+
+fn describe_error(error: rsvp.Error(String)) -> String {
+  case error {
+    rsvp.NetworkError -> "Ollama に接続できません。URL と起動状態を確認してください。"
+    rsvp.HttpError(_) -> "Ollama がエラーを返しました。モデル名を確認してください。"
+    rsvp.BadUrl(_) -> "URL の形式が正しくありません。"
+    rsvp.BadBody | rsvp.JsonError(_) | rsvp.UnhandledResponse(_) ->
+      "翻訳結果を読み取れませんでした。"
   }
 }
 
@@ -167,19 +182,29 @@ fn translate_panel(model: Model) -> Element(Message) {
     ]),
     html.div([attribute.class("flex w-full flex-col gap-2")], [
       language_select(model, ToSelect, model.to.language, SelectToLanguage),
-      html.textarea(
-        [
-          attribute.class(
-            "textarea w-full field-sizing-content min-h-40 resize-none",
-          ),
-          attribute.rows(6),
-          attribute.placeholder("TO"),
-          attribute.readonly(True),
-        ],
-        model.to.text,
-      ),
+      translation_output(model),
     ]),
   ])
+}
+
+fn translation_output(model: Model) -> Element(Message) {
+  let base_class = "textarea w-full field-sizing-content min-h-40 resize-none"
+
+  let #(class, invalid, text) = case model.error {
+    None -> #(base_class, "false", model.to.text)
+    Some(message) -> #(base_class <> " text-destructive", "true", message)
+  }
+
+  html.textarea(
+    [
+      attribute.class(class),
+      attribute.aria_invalid(invalid),
+      attribute.rows(6),
+      attribute.placeholder("TO"),
+      attribute.readonly(True),
+    ],
+    text,
+  )
 }
 
 fn language_select(
