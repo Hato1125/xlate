@@ -1,57 +1,18 @@
 @import "tailwindcss";
-@import "./basecoat/base/base.css";
-@import "./basecoat/components/button.css";
-@import "./basecoat/components/button-group.css";
-@import "./basecoat/components/card.css";
-@import "./basecoat/components/field.css";
-@import "./basecoat/components/input.css";
-@import "./basecoat/components/label.css";
-@import "./basecoat/components/popover.css";
-@import "./basecoat/components/select.css";
-@import "./basecoat/styles/vega.css";
+@import "../vendor/basecoat/base/base.css";
+@import "../vendor/basecoat/components/button.css";
+@import "../vendor/basecoat/components/button-group.css";
+@import "../vendor/basecoat/components/card.css";
+@import "../vendor/basecoat/components/field.css";
+@import "../vendor/basecoat/components/input.css";
+@import "../vendor/basecoat/components/label.css";
+@import "../vendor/basecoat/components/popover.css";
+@import "../vendor/basecoat/components/select.css";
+@import "../vendor/basecoat/styles/vega.css";
+@import "../vendor/basecoat/dark-media.css";
 
 @custom-variant dark (@media (prefers-color-scheme: dark));
 
 :root {
   color-scheme: light dark;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.371 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: #93c5fd;
-    --chart-2: #3b82f6;
-    --chart-3: #2563eb;
-    --chart-4: #1d4ed8;
-    --chart-5: #1e40af;
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.439 0 0);
-    --chevron-down-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="oklch(0.708 0 0)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down-icon lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>'); /* --muted-foreground */
-    --chevron-down-icon-50: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="oklch(0.708 0 0 / 0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down-icon lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>'); /* --muted-foreground + 50% opacity */
-    --check-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="oklch(0.708 0 0)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>');/* --muted-foreground */
-    color-scheme: dark;
-  }
 }
