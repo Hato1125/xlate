@@ -3,7 +3,7 @@ import gleam/json
 import lustre/effect.{type Effect}
 import rsvp
 
-import models/translate.{type Language, type TranslateRequest, English, Japanese}
+import models/translate.{type TranslateRequest, language_name}
 
 pub fn translate(
   request: TranslateRequest,
@@ -42,11 +42,4 @@ pub fn translate(
     body,
     rsvp.expect_json(decoder, on_done),
   )
-}
-
-fn language_name(language: Language) -> String {
-  case language {
-    Japanese -> "Japanese"
-    English -> "English"
-  }
 }
