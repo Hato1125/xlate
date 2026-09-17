@@ -143,7 +143,9 @@ fn translate_panel(model: Model) -> Element(Message) {
       ),
       html.textarea(
         [
-          attribute.class("textarea w-full"),
+          attribute.class(
+            "textarea w-full field-sizing-content min-h-40 resize-none",
+          ),
           attribute.rows(6),
           attribute.placeholder("FROM"),
           event.on_input(UserTypedFrom) |> event.debounce(500),
@@ -167,7 +169,9 @@ fn translate_panel(model: Model) -> Element(Message) {
       language_select(model, ToSelect, model.to.language, SelectToLanguage),
       html.textarea(
         [
-          attribute.class("textarea w-full"),
+          attribute.class(
+            "textarea w-full field-sizing-content min-h-40 resize-none",
+          ),
           attribute.rows(6),
           attribute.placeholder("TO"),
           attribute.readonly(True),
